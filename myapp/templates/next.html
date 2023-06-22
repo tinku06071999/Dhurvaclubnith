@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Dhurva Club</title>
+  <link rel="stylesheet" href="{% static 'style_next.css' %}" />
+
+  <head>
+    <body>
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <header>
+        <a href="#" class="logo">Dhurva Club<span>.</span></a>
+        <div class="menuToggle" onclick="toggleMenu();"></div>
+        {% url 'suggestion_submit' as suggestion_submit%} {% csrf_token %}
+        <ul class="navigation">
+          <li>
+            <a href="{{ suggestion_submit }}" onclick="toggleMenu();"
+              >Feedback</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'logout' %}" onclick="toggleMenu();">logout</a>
+          </li>
+          <li>
+            <a href="#" onclick="toggleMenu();">Donation</a>
+          </li>
+        </ul>
+      </header>
+
+      <img
+        id="headerImage"
+        src="/static/logo.jpg"
+        height="600"
+        width="1550"
+        alt="Header Image"
+      />
+      {% comment %} editing {% endcomment %}
+      <table>
+        <caption>
+          Upcoming Events and Registration
+        </caption>
+        <thead>
+          <tr>
+            <th>Upcoming Events</th>
+            <th>Registration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="event-details">
+              <h4>Saturday Festival</h4>
+              <p>Date: June 30, 2023</p>
+              <p>Location: Hamirpur Base</p>
+            </td>
+            <td class="registration-btn">
+              <a href="registration-form.html">Register</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="event-details">
+              <h4>IIT Roorkee Camp</h4>
+              <p>Date: July 15, 2023</p>
+              <p>Location: IIT Roorkee</p>
+            </td>
+            <td class="registration-btn">
+              <a href="registration-form.html">Register</a>
+            </td>
+          </tr>
+          <!-- Add more event rows as needed -->
+        </tbody>
+      </table>
+
+      {% comment %} editing end {% endcomment %}
+      <div class="copyrightText">
+        <h5>
+          Copyright 2023 <a href="#"> Dhurva Club NITH</a>. All Right Reserved
+        </h5>
+      </div>
+      <script type="text/javascript">
+        window.addEventListener("scroll", function () {
+          const header = document.querySelector("header");
+          header.classList.toggle("sticky", window.scrollY > 0);
+        });
+
+        function toggleMenu() {
+          const menuToggle = document.querySelector(".menuToggle");
+          const navigation = document.querySelector(".navigation");
+          menuToggle.classList.toggle("active");
+          navigation.classList.toggle("active");
+        }
+
+        var headerImage = document.getElementById("headerImage");
+        var images = [
+          "/static/Renince.jpg",
+          "/static/logo.jpg",
+          "/static/succes.jpg",
+        ]; // Add the image filenames you want to cycle through
+
+        var currentIndex = 0;
+
+        function changeImage() {
+          headerImage.src = images[currentIndex];
+          currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        setInterval(changeImage, 3000); // Change image every 3 seconds
+      </script>
+    </body>
+  </head>
+</html>
